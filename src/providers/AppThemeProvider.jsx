@@ -19,9 +19,11 @@ export default function AppThemeProvider({ children }) {
         ...(mode === "light"
           ? {
               header: { background: deepPurple[500] },
+              banner: { background: "#e1e1e1" },
             }
           : {
               header: { background: deepPurple[900] },
+              banner: { background: "#222" },
             }),
       },
     });
