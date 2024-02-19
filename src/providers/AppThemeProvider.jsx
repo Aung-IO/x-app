@@ -20,10 +20,12 @@ export default function AppThemeProvider({ children }) {
           ? {
               header: { background: deepPurple[500] },
               banner: { background: "#e1e1e1" },
+              login: {background: deepPurple[500] }
             }
           : {
               header: { background: deepPurple[900] },
               banner: { background: "#222" },
+              login: { background: deepPurple[700] },
             }),
       },
     });
