@@ -17,7 +17,7 @@ import { useUIState } from "../providers/UIStateProvider";
 
 export default function AppDrawer() {
   const { openDrawer, setOpenDrawer } = useUIState();
-  const { auth, setAuth } = useAuth();
+  const {auth, setAuth, authUser, setAuthUser} = useAuth();
   const navigate = useNavigate();
   return (
     <Drawer
@@ -40,16 +40,16 @@ export default function AppDrawer() {
           {auth && (
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Avatar sx={{ width: 98, height: 98, background: blueGrey[400] }}>
-                Apwiz
+                {authUser.name[0]}
               </Avatar>
               <Box sx={{ ml: 2 }}>
                 <Typography
                   sx={{ fontSize: 24, fontWeight: 500, color: "white" }}
                 >
-                  Apwiz
+                  {authUser.name}
                 </Typography>
                 <Typography sx={{ fontSize: 14, color: "white" }}>
-                  @apwiz
+                @{authUser.handle}
                 </Typography>
               </Box>
             </Box>
@@ -83,7 +83,13 @@ export default function AppDrawer() {
               </ListItemButton>
             </ListItem>
             <ListItem>
-              <ListItemButton onClick={() => setAuth(false)}>
+              <ListItemButton onClick={() => {
+                setAuth(false);
+                setAuthUser(null);
+                localStorage.removeItem('token');
+                setOpenDrawer(false);
+                navigate("/login");
+              }}>
                 <ListItemIcon>
                   <Logout />
                 </ListItemIcon>
@@ -111,9 +117,9 @@ export default function AppDrawer() {
             <ListItem>
               <ListItemButton
                 onClick={() => {
-                  setAuth(true);
-                  // navigate("/login");
-                  // setOpenDrawer(false);
+                  // setAuth(true);
+                  navigate("/login");
+                  setOpenDrawer(false);
                 }}
               >
                 <ListItemIcon>
